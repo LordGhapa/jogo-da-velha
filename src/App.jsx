@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Board from './components/Board'
-import Box from './components/box'
 import ScoreBoard from './components/ScoreBoard'
+import ResetButton from './components/ResetButton'
 
 function App() {
   const WIN_CONDITIONS = [
@@ -63,16 +63,37 @@ function App() {
       }
     }
   }
+// console.log(board)
+// console.log(board.every(value => value !== null))
+
+
+
+useEffect(() => {
+  if (board.every(value => value !== null)) {
+    resetBoard()
+  }
+}, [board])
+
 
   const resetBoard = () => {
+    SetXPlayer(true)
     setGameOver(false)
     setBoard(Array(9).fill(null))
+  }
+
+
+  const resetBoardAll = () => {
+    SetXPlayer(true)
+    setGameOver(false)
+    setBoard(Array(9).fill(null))
+    setScores({ xScore: 0, oScore: 0 })
   }
 
   return (
     <>
       <ScoreBoard scores={scores} xPlaying={xPlayer} />
       <Board board={board} onClick={gameOver ? resetBoard : handleBoxClick} />
+      <ResetButton resetBoard={resetBoardAll} />
     </>
   )
 }
