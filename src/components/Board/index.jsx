@@ -8,7 +8,7 @@ function Board({ board, onClick }) {
       <div className={s.board}>
         {board.map((value, index) => (
           <React.Fragment key={index}>
-            <Box value={value} onClick={() => onClick(index)} />
+            <Box value={value} onClick={() =>value===null && onClick(index)} />
           </React.Fragment>
         ))}
       </div>
