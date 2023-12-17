@@ -1,0 +1,30 @@
+.bgModal {
+  background: #00000073;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  background: white;
+  border-radius: 15%;
+  width: 100%;
+  max-width: 320px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  font-weight: bold;
+}
+.empate{
+ color: rgb(255, 70, 37);
+}
+.x{
+  color: rgb(255, 70, 37);
+
+}
+.o{
+   color: rgb(44, 135, 255);
+}

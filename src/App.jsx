@@ -3,6 +3,7 @@ import './App.css'
 import Board from './components/Board'
 import ScoreBoard from './components/ScoreBoard'
 import ResetButton from './components/ResetButton'
+import Modal from './components/Modal'
 
 function App() {
   const WIN_CONDITIONS = [
@@ -21,6 +22,8 @@ function App() {
   const [scores, setScores] = useState({ xScore: 0, oScore: 0 })
   const [gameOver, setGameOver] = useState(false)
 
+  const [result, setResult] = useState(null)
+
   const handleBoxClick = boxIndex => {
     const updatedBoard = board.map((value, idx) => {
       if (idx === boxIndex) {
@@ -37,9 +40,11 @@ function App() {
         let { oScore } = scores
         oScore += 1
         setScores({ ...scores, oScore })
+        setResult(2)
       } else {
         let { xScore } = scores
         xScore += 1
+        setResult(1)
         setScores({ ...scores, xScore })
       }
     }
@@ -63,26 +68,25 @@ function App() {
       }
     }
   }
-// console.log(board)
-// console.log(board.every(value => value !== null))
+  // console.log(board)
+  // console.log(board.every(value => value !== null))
 
-
-
-useEffect(() => {
-  if (board.every(value => value !== null)) {
-    resetBoard()
-  }
-}, [board])
-
+  useEffect(() => {
+    if (board.every(value => value !== null)) {
+      resetBoard()
+       setResult(3)
+    }
+  }, [board])
 
   const resetBoard = () => {
+  
     SetXPlayer(true)
     setGameOver(false)
     setBoard(Array(9).fill(null))
   }
 
-
   const resetBoardAll = () => {
+   
     SetXPlayer(true)
     setGameOver(false)
     setBoard(Array(9).fill(null))
@@ -91,6 +95,7 @@ useEffect(() => {
 
   return (
     <>
+      {result && <Modal result={result} setResult={setResult} />}
       <ScoreBoard scores={scores} xPlaying={xPlayer} />
       <Board board={board} onClick={gameOver ? resetBoard : handleBoxClick} />
       <ResetButton resetBoard={resetBoardAll} />
